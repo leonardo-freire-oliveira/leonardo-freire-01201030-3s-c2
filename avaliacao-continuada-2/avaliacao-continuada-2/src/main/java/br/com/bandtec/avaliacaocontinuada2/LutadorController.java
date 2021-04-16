@@ -27,6 +27,17 @@ public class LutadorController {
         return ResponseEntity.status(200).body(repository.findByLutadorComVida(vida));
     }
 
+    @PostMapping
+    public ResponseEntity postLuta(@RequestBody @Valid Lutador batalha) {
+        if (batalha.getForcaDoGolpe()<0){
+            return ResponseEntity.status(400).body("Força do golpe deve ser maior que zero!");
+        }
+        else{
+            repository.save(batalha);
+            return ResponseEntity.status(201).build();
+        }
+    }
+
 
 
 }
